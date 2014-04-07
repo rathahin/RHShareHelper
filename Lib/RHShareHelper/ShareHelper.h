@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, SocialMedia) {
 
 @interface ShareHelper : NSObject
 
+@property (nonatomic, strong) NSArray *model;
+
 /*
 - (id)initWithShareSource:(id)source optionalDictionary:(NSDictionary *)optionalDictionary;
 

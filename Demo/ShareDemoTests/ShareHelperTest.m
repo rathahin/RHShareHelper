@@ -7,19 +7,26 @@
 //
 
 #import "Kiwi.h"
+#import "ShareHelper.h"
 
 SPEC_BEGIN(ShareHelperTest)
 
-describe(@"In our first Kiwi test", ^{
-  context(@"a sample string", ^{
-    NSString *greeting = @"Hello, World";
+describe(@"With share helper", ^{
+  
+  __block ShareHelper *sharer;
+  
+  beforeEach(^{
+    sharer = [[ShareHelper alloc] init];
+  });
+  
+  context(@"when create new share helper", ^{
     
-    it(@"should exist", ^{
-      [greeting shouldNotBeNil];
+    it(@"It should exist", ^{
+      [sharer shouldNotBeNil];
     });
     
-    it(@"should be 'Hello, World'", ^{
-      [[greeting should] equal:@"Hello, World"];
+    it(@"The share model should be empty", ^{
+      [[sharer.model should] beEmpty];
     });
     
   });

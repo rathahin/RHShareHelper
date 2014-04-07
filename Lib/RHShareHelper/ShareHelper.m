@@ -20,7 +20,17 @@
 
 @implementation ShareHelper
 
-
+- (id)init {
+  
+  self = [super init];
+  
+  if (self) {
+    _model = [[NSArray alloc] init];
+  }
+  
+  return self;
+  
+}
 
 /*
 - (id)initWithShareSource:(id)source optionalDictionary:(NSDictionary *)optionalDictionary {
