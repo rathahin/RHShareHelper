@@ -7,16 +7,16 @@
 //
 
 #import "Kiwi.h"
-#import "ShareHelper.h"
+#import "RHShareHelper.h"
 
 SPEC_BEGIN(ShareHelperTest)
 
 describe(@"With share helper", ^{
   
-  __block ShareHelper *sharer;
+  __block RHShareHelper *sharer;
   
   beforeEach(^{
-    sharer = [[ShareHelper alloc] init];
+    sharer = [[RHShareHelper alloc] init];
   });
   
   context(@"when create new share helper", ^{
@@ -25,10 +25,11 @@ describe(@"With share helper", ^{
       [sharer shouldNotBeNil];
     });
     
-    it(@"The share model should be empty", ^{
-      [[sharer.model should] beEmpty];
+    it(@"Should able to set Delegate", ^{
+      [[sharer should] respondToSelector:@selector(setDelegate:)];
     });
     
   });
 });
+
 SPEC_END

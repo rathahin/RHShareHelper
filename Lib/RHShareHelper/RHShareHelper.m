@@ -1,8 +1,8 @@
-#import "ShareHelper.h"
+#import "RHShareHelper.h"
 #import <Twitter/Twitter.h>
 #import <MessageUI/MessageUI.h>
 
-@interface ShareHelper () <UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@interface RHShareHelper () <UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSDictionary      *facebook;
 @property (nonatomic, strong) NSDictionary      *twitter;
@@ -18,14 +18,14 @@
 
 @end
 
-@implementation ShareHelper
+@implementation RHShareHelper
 
 - (id)init {
   
   self = [super init];
   
   if (self) {
-    _model = [[NSArray alloc] init];
+    // do setup
   }
   
   return self;
