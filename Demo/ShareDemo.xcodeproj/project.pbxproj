@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		56CEAB11689F47B5B1C1DF83 /* libPods-ShareDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E321045CDDC345AA8D409767 /* libPods-ShareDemoTests.a */; };
+		F1029CFA18F28A8A00868A4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029CF918F28A8A00868A4F /* Foundation.framework */; };
+		F1029CFC18F28A8A00868A4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029CFB18F28A8A00868A4F /* CoreGraphics.framework */; };
+		F1029CFE18F28A8A00868A4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029CFD18F28A8A00868A4F /* UIKit.framework */; };
+		F1029D0418F28A8A00868A4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1029D0218F28A8A00868A4F /* InfoPlist.strings */; };
+		F1029D0618F28A8A00868A4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D0518F28A8A00868A4F /* main.m */; };
+		F1029D0A18F28A8A00868A4F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D0918F28A8A00868A4F /* AppDelegate.m */; };
+		F1029D0C18F28A8A00868A4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1029D0B18F28A8A00868A4F /* Images.xcassets */; };
+		F1029D1318F28A8A00868A4F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029D1218F28A8A00868A4F /* XCTest.framework */; };
+		F1029D1418F28A8A00868A4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029CF918F28A8A00868A4F /* Foundation.framework */; };
+		F1029D1518F28A8A00868A4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1029CFD18F28A8A00868A4F /* UIKit.framework */; };
+		F1029D1D18F28A8A00868A4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1029D1B18F28A8A00868A4F /* InfoPlist.strings */; };
+		F1029D2B18F28B2700868A4F /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D2A18F28B2700868A4F /* ShareViewController.m */; };
+		F1029D3018F28DB300868A4F /* ShareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D2F18F28DB300868A4F /* ShareHelper.m */; };
+		F1029D3218F2986700868A4F /* ShareHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D3118F2986700868A4F /* ShareHelperTest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1029D1618F28A8A00868A4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1029CEE18F28A8A00868A4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1029CF518F28A8A00868A4F;
+			remoteInfo = ShareDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		069911F684274013969CBC7D /* Pods-ShareDemoTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareDemoTests.xcconfig"; path = "Pods/Pods-ShareDemoTests.xcconfig"; sourceTree = "<group>"; };
+		E321045CDDC345AA8D409767 /* libPods-ShareDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1029CF618F28A8A00868A4F /* ShareDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1029CF918F28A8A00868A4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F1029CFB18F28A8A00868A4F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F1029CFD18F28A8A00868A4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F1029D0118F28A8A00868A4F /* ShareDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShareDemo-Info.plist"; sourceTree = "<group>"; };
+		F1029D0318F28A8A00868A4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F1029D0518F28A8A00868A4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F1029D0718F28A8A00868A4F /* ShareDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShareDemo-Prefix.pch"; sourceTree = "<group>"; };
+		F1029D0818F28A8A00868A4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F1029D0918F28A8A00868A4F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F1029D0B18F28A8A00868A4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F1029D1118F28A8A00868A4F /* ShareDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1029D1218F28A8A00868A4F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F1029D1A18F28A8A00868A4F /* ShareDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShareDemoTests-Info.plist"; sourceTree = "<group>"; };
+		F1029D1C18F28A8A00868A4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F1029D2918F28B2700868A4F /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		F1029D2A18F28B2700868A4F /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		F1029D2E18F28DB300868A4F /* ShareHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareHelper.h; sourceTree = "<group>"; };
+		F1029D2F18F28DB300868A4F /* ShareHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHelper.m; sourceTree = "<group>"; };
+		F1029D3118F2986700868A4F /* ShareHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHelperTest.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1029CF318F28A8A00868A4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029CFC18F28A8A00868A4F /* CoreGraphics.framework in Frameworks */,
+				F1029CFE18F28A8A00868A4F /* UIKit.framework in Frameworks */,
+				F1029CFA18F28A8A00868A4F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1029D0E18F28A8A00868A4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029D1318F28A8A00868A4F /* XCTest.framework in Frameworks */,
+				F1029D1518F28A8A00868A4F /* UIKit.framework in Frameworks */,
+				F1029D1418F28A8A00868A4F /* Foundation.framework in Frameworks */,
+				56CEAB11689F47B5B1C1DF83 /* libPods-ShareDemoTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1029CED18F28A8A00868A4F = {
+			isa = PBXGroup;
+			children = (
+				F1029D2C18F28DB300868A4F /* Lib */,
+				F1029CFF18F28A8A00868A4F /* ShareDemo */,
+				F1029D1818F28A8A00868A4F /* ShareDemoTests */,
+				F1029CF818F28A8A00868A4F /* Frameworks */,
+				F1029CF718F28A8A00868A4F /* Products */,
+				069911F684274013969CBC7D /* Pods-ShareDemoTests.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		F1029CF718F28A8A00868A4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1029CF618F28A8A00868A4F /* ShareDemo.app */,
+				F1029D1118F28A8A00868A4F /* ShareDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1029CF818F28A8A00868A4F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1029CF918F28A8A00868A4F /* Foundation.framework */,
+				F1029CFB18F28A8A00868A4F /* CoreGraphics.framework */,
+				F1029CFD18F28A8A00868A4F /* UIKit.framework */,
+				F1029D1218F28A8A00868A4F /* XCTest.framework */,
+				E321045CDDC345AA8D409767 /* libPods-ShareDemoTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1029CFF18F28A8A00868A4F /* ShareDemo */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D2818F28B1300868A4F /* ViewController */,
+				F1029D0818F28A8A00868A4F /* AppDelegate.h */,
+				F1029D0918F28A8A00868A4F /* AppDelegate.m */,
+				F1029D0B18F28A8A00868A4F /* Images.xcassets */,
+				F1029D0018F28A8A00868A4F /* Supporting Files */,
+			);
+			path = ShareDemo;
+			sourceTree = "<group>";
+		};
+		F1029D0018F28A8A00868A4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D0118F28A8A00868A4F /* ShareDemo-Info.plist */,
+				F1029D0218F28A8A00868A4F /* InfoPlist.strings */,
+				F1029D0518F28A8A00868A4F /* main.m */,
+				F1029D0718F28A8A00868A4F /* ShareDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1029D1818F28A8A00868A4F /* ShareDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D3118F2986700868A4F /* ShareHelperTest.m */,
+				F1029D1918F28A8A00868A4F /* Supporting Files */,
+			);
+			path = ShareDemoTests;
+			sourceTree = "<group>";
+		};
+		F1029D1918F28A8A00868A4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D1A18F28A8A00868A4F /* ShareDemoTests-Info.plist */,
+				F1029D1B18F28A8A00868A4F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F1029D2818F28B1300868A4F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D2918F28B2700868A4F /* ShareViewController.h */,
+				F1029D2A18F28B2700868A4F /* ShareViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		F1029D2C18F28DB300868A4F /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D2D18F28DB300868A4F /* RHShareHelper */,
+			);
+			name = Lib;
+			path = ../Lib;
+			sourceTree = "<group>";
+		};
+		F1029D2D18F28DB300868A4F /* RHShareHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F1029D2E18F28DB300868A4F /* ShareHelper.h */,
+				F1029D2F18F28DB300868A4F /* ShareHelper.m */,
+			);
+			path = RHShareHelper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1029CF518F28A8A00868A4F /* ShareDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1029D2218F28A8A00868A4F /* Build configuration list for PBXNativeTarget "ShareDemo" */;
+			buildPhases = (
+				F1029CF218F28A8A00868A4F /* Sources */,
+				F1029CF318F28A8A00868A4F /* Frameworks */,
+				F1029CF418F28A8A00868A4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareDemo;
+			productName = ShareDemo;
+			productReference = F1029CF618F28A8A00868A4F /* ShareDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F1029D1018F28A8A00868A4F /* ShareDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1029D2518F28A8A00868A4F /* Build configuration list for PBXNativeTarget "ShareDemoTests" */;
+			buildPhases = (
+				FFC24AAB867A4E32BDB6D065 /* Check Pods Manifest.lock */,
+				F1029D0D18F28A8A00868A4F /* Sources */,
+				F1029D0E18F28A8A00868A4F /* Frameworks */,
+				F1029D0F18F28A8A00868A4F /* Resources */,
+				33B2D1C2860A4A5EBF97CBE2 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1029D1718F28A8A00868A4F /* PBXTargetDependency */,
+			);
+			name = ShareDemoTests;
+			productName = ShareDemoTests;
+			productReference = F1029D1118F28A8A00868A4F /* ShareDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1029CEE18F28A8A00868A4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = rathahin;
+				TargetAttributes = {
+					F1029D1018F28A8A00868A4F = {
+						TestTargetID = F1029CF518F28A8A00868A4F;
+					};
+				};
+			};
+			buildConfigurationList = F1029CF118F28A8A00868A4F /* Build configuration list for PBXProject "ShareDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F1029CED18F28A8A00868A4F;
+			productRefGroup = F1029CF718F28A8A00868A4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1029CF518F28A8A00868A4F /* ShareDemo */,
+				F1029D1018F28A8A00868A4F /* ShareDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1029CF418F28A8A00868A4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029D0418F28A8A00868A4F /* InfoPlist.strings in Resources */,
+				F1029D0C18F28A8A00868A4F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1029D0F18F28A8A00868A4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029D1D18F28A8A00868A4F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		33B2D1C2860A4A5EBF97CBE2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ShareDemoTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFC24AAB867A4E32BDB6D065 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1029CF218F28A8A00868A4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029D0A18F28A8A00868A4F /* AppDelegate.m in Sources */,
+				F1029D2B18F28B2700868A4F /* ShareViewController.m in Sources */,
+				F1029D0618F28A8A00868A4F /* main.m in Sources */,
+				F1029D3018F28DB300868A4F /* ShareHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1029D0D18F28A8A00868A4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1029D3218F2986700868A4F /* ShareHelperTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1029D1718F28A8A00868A4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1029CF518F28A8A00868A4F /* ShareDemo */;
+			targetProxy = F1029D1618F28A8A00868A4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F1029D0218F28A8A00868A4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1029D0318F28A8A00868A4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F1029D1B18F28A8A00868A4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1029D1C18F28A8A00868A4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F1029D2018F28A8A00868A4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F1029D2118F28A8A00868A4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F1029D2318F28A8A00868A4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareDemo/ShareDemo-Prefix.pch";
+				INFOPLIST_FILE = "ShareDemo/ShareDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F1029D2418F28A8A00868A4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareDemo/ShareDemo-Prefix.pch";
+				INFOPLIST_FILE = "ShareDemo/ShareDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F1029D2618F28A8A00868A4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 069911F684274013969CBC7D /* Pods-ShareDemoTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ShareDemo.app/ShareDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareDemo/ShareDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ShareDemoTests/ShareDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		F1029D2718F28A8A00868A4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 069911F684274013969CBC7D /* Pods-ShareDemoTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ShareDemo.app/ShareDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareDemo/ShareDemo-Prefix.pch";
+				INFOPLIST_FILE = "ShareDemoTests/ShareDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1029CF118F28A8A00868A4F /* Build configuration list for PBXProject "ShareDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1029D2018F28A8A00868A4F /* Debug */,
+				F1029D2118F28A8A00868A4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1029D2218F28A8A00868A4F /* Build configuration list for PBXNativeTarget "ShareDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1029D2318F28A8A00868A4F /* Debug */,
+				F1029D2418F28A8A00868A4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1029D2518F28A8A00868A4F /* Build configuration list for PBXNativeTarget "ShareDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1029D2618F28A8A00868A4F /* Debug */,
+				F1029D2718F28A8A00868A4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1029CEE18F28A8A00868A4F /* Project object */;
+}

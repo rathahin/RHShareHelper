@@ -1,0 +1,7 @@
+platform :ios, '6.0'
+
+target :ShareDemoTests, :exclusive => true do
+  pod 'Kiwi/XCTest'
+end
+
+
