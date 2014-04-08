@@ -1,19 +1,17 @@
 #import "RHShareHelper.h"
 #import <Twitter/Twitter.h>
 #import <MessageUI/MessageUI.h>
+#import "RHSharableModel.h"
 
 @interface RHShareHelper () <UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, strong) NSDictionary      *facebook;
-@property (nonatomic, strong) NSDictionary      *twitter;
-@property (nonatomic, strong) NSDictionary      *instagram;
+@property (nonatomic, strong) UIActionSheet     *actionSheet;
 @property (nonatomic, strong) UIViewController  *rootViewController;
 @property (nonatomic, copy)   void              (^completion)(void);
-@property (nonatomic, strong) NSArray           *socialMedias;
+@property (nonatomic, strong) NSArray           *sharableMedias;
 @property (nonatomic, strong) UIDocumentInteractionController *documentController;
-@property (nonatomic, assign) SocialMedia       sharedWithMedia;
+@property (nonatomic, assign) SharingType       sharedWithMedia;
 @property (nonatomic, assign) BOOL              sharedWithSuccess;
-@property (nonatomic, strong) id source;
 @property (nonatomic, strong) MFMailComposeViewController *mailComposeViewController;
 
 @end
@@ -25,66 +23,39 @@
   self = [super init];
   
   if (self) {
-    // do setup
+    [self commonSetupOnInit];
   }
   
   return self;
   
 }
 
-/*
-- (id)initWithShareSource:(id)source optionalDictionary:(NSDictionary *)optionalDictionary {
-  self = [super init];
+- (void)commonSetupOnInit {
   
-  if (self) {
-    NSString *shareString = nil;
-    NSArray *socialMedias = nil;
-    NSURL *shareURL = nil;
-    
-    if ([source isKindOfClass:[VGEvent class]]) {
-      shareString = [NSString stringWithFormat:NSLocalizedString(@"shareBody", @""), [source title]];
-      shareURL = [source detailURL];
-      socialMedias = @[self.facebook, self.twitter, self.instagram];
-    }
-    
-    BShareableItem *item = [[BShareableItem alloc] initWithShareText:shareString];
-    
-    item.shareImage = nil;
-    item.url = shareURL;
-    
-    self.shareItem = item;
-    
-    self.source = source;
-  }
+  _sharableMedias = @[self.facebook, self.twitter, self.instagram, self.email];
   
-  return self;
 }
 
-- (void)trackAndCallback {
-  
-  if (self.completion) {
-    self.completion();
-  }
-}
+#pragma mark - API
 
-- (void)presentShareFromController:(UIViewController *)controller socialMediaType:(SocialMedia)socialMediaType completion:(void (^)())completion {
+- (void)shareFromController:(UIViewController *)controller sharingType:(SharingType)sharingType {
+  
   self.rootViewController = controller;
-  self.completion = completion;
   
-  switch (socialMediaType) {
-    case SocialMediaFacebook:
+  switch (sharingType) {
+    case SharingTypeFacebook:
       [self shareViaFacebook];
       break;
       
-    case SocialMediaTwitter:
+    case SharingTypeTwitter:
       [self shareViaTwitter];
       break;
       
-    case SocialMediaInstagram:
+    case SharingTypeInstagram:
       [self shareViaInstagram];
       break;
       
-    case SocialMediaEmail:
+    case SharingTypeEmail:
       [self shareViaMail];
       break;
       
@@ -93,48 +64,78 @@
   }
 }
 
-#pragma mark -
+- (void)presentSheetFromController:(UIViewController *)controller sharableMedias:(NSArray *)sharableMedias {
+  self.rootViewController = controller;
+  self.sharableMedias = sharableMedias;
+  UIActionSheet *sheet = self.actionSheet;
+  [sheet showInView:controller.view];
+}
+
 #pragma mark - Action Sheet
 
-- (UIActionSheet *)sheetForSharing:(BShareableItem *)item viaSocialMedia:(NSArray *)socialMedias completion:(void (^)(ShareHelperResult))completionBlock {
-  self.socialMedias = socialMedias;
-  self.shareItem = item;
-  self.sharedWithSuccess = NO;
+- (UIActionSheet *)actionSheet {
   
-  UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Share via"
-                                                     delegate:self
-                                            cancelButtonTitle:nil
-                                       destructiveButtonTitle:nil
-                                            otherButtonTitles:nil];
-  
-  for (NSDictionary *eachSocialMedia in socialMedias) {
-    [sheet addButtonWithTitle:eachSocialMedia[@"title"]];
+  if (!_actionSheet) {
+    _actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Share via", nil)
+                                               delegate:self
+                                      cancelButtonTitle:nil
+                                 destructiveButtonTitle:nil
+                                      otherButtonTitles:nil];
+    
+    for (NSDictionary *eachSocialMedia in self.sharableMedias) {
+      [_actionSheet addButtonWithTitle:eachSocialMedia[@"title"]];
+    }
+    
+    [_actionSheet setCancelButtonIndex:[_actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)]];
+    
   }
   
-  [sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
+  return _actionSheet;
   
-  return sheet;
 }
 
 - (NSDictionary *)facebook {
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-          [NSNumber numberWithInt:SocialMediaFacebook], @"service",
-          @"Facebook", @"title",
-          nil];
+  if (!_facebook) {
+    _facebook = [NSDictionary dictionaryWithObjectsAndKeys:
+                 [NSNumber numberWithInt:SharingTypeFacebook], @"service",
+                 @"Facebook", @"title",
+                 nil];
+  }
+  
+  return _facebook;
 }
 
 - (NSDictionary *)twitter {
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-          [NSNumber numberWithInt:SocialMediaTwitter], @"service",
+  if (!_twitter) {
+    _twitter = [NSDictionary dictionaryWithObjectsAndKeys:
+          [NSNumber numberWithInt:SharingTypeTwitter], @"service",
           @"Twitter", @"title",
-          nil];
+    nil];
+  }
+  
+  return _twitter;
 }
 
 - (NSDictionary *)instagram {
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-          [NSNumber numberWithInt:SocialMediaInstagram], @"service",
-          @"Instagram", @"title",
-          nil];
+  
+  if (!_instagram) {
+    _instagram = [NSDictionary dictionaryWithObjectsAndKeys:
+                  [NSNumber numberWithInt:SharingTypeInstagram], @"service",
+                  @"Instagram", @"title",
+                  nil];
+  }
+  
+  return _instagram;
+}
+
+- (NSDictionary *)email {
+  if (!_email) {
+    _email = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:SharingTypeEmail], @"service",
+              @"Email", @"title",
+              nil];
+  }
+  
+  return _email;
 }
 
 #pragma mark - Twitter
@@ -151,9 +152,9 @@
     
     ((SLComposeViewController *)twitterViewComposer).completionHandler = ^(SLComposeViewControllerResult result) {
       [self.rootViewController dismissViewControllerAnimated:YES completion:^{
-        self.sharedWithMedia = SocialMediaTwitter;
+        self.sharedWithMedia = SharingTypeTwitter;
         self.sharedWithSuccess = YES;
-        [self trackAndCallback];
+        [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
       }];
     };
   }
@@ -161,16 +162,16 @@
   if (twitterViewComposer) {
     self.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
-    NSLog(@"Share body to Twitter %@", NSLocalizedString(@"message.shareBodyTwitter", nil));
+    RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeFacebook];
     
-    if (self.shareItem.shareText)
-      [twitterViewComposer setInitialText:[NSString stringWithFormat:NSLocalizedString(@"message.shareBodyTwitter", nil), [(VGEvent *)self.source title]]];
+    if (shareItem.shareText)
+      [twitterViewComposer setInitialText:shareItem.shareText];
     
-    if (self.shareItem.shareImage)
-      [twitterViewComposer addImage:self.shareItem.shareImage];
+    if (shareItem.shareImage)
+      [twitterViewComposer addImage:shareItem.shareImage];
     
-    if (self.shareItem.url) {
-      [twitterViewComposer addURL:self.shareItem.url];
+    if (shareItem.url) {
+      [twitterViewComposer addURL:shareItem.url];
     }
     
     [self.rootViewController presentViewController:twitterViewComposer animated:YES completion:NULL];
@@ -188,22 +189,24 @@
   
   ((SLComposeViewController *)facebookViewComposer).completionHandler = ^(SLComposeViewControllerResult result) {
     [self.rootViewController dismissViewControllerAnimated:YES completion:^{
-      self.sharedWithMedia = SocialMediaFacebook;
+      self.sharedWithMedia = SharingTypeFacebook;
       self.sharedWithSuccess = YES;
-      [self trackAndCallback];
+      [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
     }];
   };
   
   self.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
   
-  if (self.shareItem.shareText)
-    [facebookViewComposer setInitialText:[NSString stringWithFormat:NSLocalizedString(@"message.shareBodyFacebook", nil), [(VGEvent *)self.source title]]];
+  RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeFacebook];
   
-  if (self.shareItem.shareImage)
-    [facebookViewComposer addImage:self.shareItem.shareImage];
+  if (shareItem.shareText)
+    [facebookViewComposer setInitialText:shareItem.shareText];
   
-  if (self.shareItem.url) {
-    [facebookViewComposer addURL:self.shareItem.url];
+  if (shareItem.shareImage)
+    [facebookViewComposer addImage:shareItem.shareImage];
+  
+  if (shareItem.url) {
+    [facebookViewComposer addURL:shareItem.url];
   }
   
   [self.rootViewController presentViewController:facebookViewComposer animated:YES completion:NULL];
@@ -217,32 +220,21 @@
 
 - (void)shareViaMail {
   if ([self canSendMail]) {
+    
+    RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeEmail];
+    
     self.mailComposeViewController = [[MFMailComposeViewController alloc] init];
     self.mailComposeViewController.mailComposeDelegate = self;
-    [self.mailComposeViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"emailTitle", nil), [(VGEvent *)self.source title]]];
-    [self.mailComposeViewController.navigationBar setTintColor:[VegasTheme yellowColor]];
-    [self.mailComposeViewController.navigationBar setBarStyle:UIBarStyleBlack];
-    [self.mailComposeViewController.navigationBar setTranslucent:NO];
-   
-    CGFloat iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
-
-    if (iOSVersion < 7.0) {
-      [self.mailComposeViewController.navigationBar setTintColor:[VegasTheme blackColor]];
-      [self.mailComposeViewController.navigationBar setBackgroundColor:[VegasTheme yellowColor]];
-    }else{
-      [self.mailComposeViewController.navigationBar setBackgroundColor:[VegasTheme yellowColor]];
-      #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-      [self.mailComposeViewController.navigationBar setBarTintColor:[VegasTheme blackColor]];
-      #endif
-    }
-    
-    [self.mailComposeViewController setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"emailBody", nil), [self.source title], [self.source detailURL]] isHTML:YES];
+    [self.mailComposeViewController setSubject:shareItem.emailSubject];
+    [self.delegate shareHelper:self
+    appearenceForNavigationBar:self.mailComposeViewController.navigationBar];
+    [self.mailComposeViewController setMessageBody:shareItem.emailBody isHTML:YES];
     [self.rootViewController presentViewController:self.mailComposeViewController animated:YES completion:NULL];
   } else {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"mailErrorTitle", nil)
-                                                    message:NSLocalizedString(@"mailErrorMessage", nil)
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Device not configured to send mail.", nil)
+                                                    message:NSLocalizedString(@"", nil)
                                                    delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"ui.OK", nil)
+                                          cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                           otherButtonTitles:nil];
     [alert show];
   }
@@ -254,8 +246,10 @@
   // no resize, just fire away.
   //UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
   
-  UIImage *shareImage = self.shareItem.shareImage;
-  NSString *shareText = self.shareItem.shareText;
+  RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeInstagram];
+  
+  UIImage *shareImage = shareItem.shareImage;
+  NSString *shareText = shareItem.shareText;
   
   CGFloat cropVal = (shareImage.size.height > shareImage.size.width ? shareImage.size.width : shareImage.size.height);
   
@@ -270,32 +264,27 @@
   NSString *writePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"instagram.igo"];
   
   if (![imageData writeToFile:writePath atomically:YES]) {
-    // failure
-    DDLogWarn(@"image save failed to path %@", writePath);
-    [self trackAndCallback];
-    return;
+    [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultFailure];
   } else {
-    // success.
-  }
-  
-  // send it to instagram.
-  NSURL *fileURL = [NSURL fileURLWithPath:writePath];
-  self.documentController = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
-  self.documentController.delegate = self;
-  [self.documentController setUTI:@"com.instagram.exclusivegram"];
-  
-  if (shareText) {
-    [self.documentController setAnnotation:@{@"InstagramCaption" : shareText}];
-  }
-  
-  if (![self.documentController presentOpenInMenuFromRect:CGRectZero inView:self.rootViewController.view animated:YES]) {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"openInstagramFailedTitle"
-                                                        message:@"openInstagramFailedMessage"
-                                                       delegate:self
-                                              cancelButtonTitle:@"ok"
-                                              otherButtonTitles:nil];
-    alertView.tag = 168;
-    [alertView show];
+    // send it to instagram.
+    NSURL *fileURL = [NSURL fileURLWithPath:writePath];
+    self.documentController = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.documentController.delegate = self;
+    [self.documentController setUTI:@"com.instagram.exclusivegram"];
+    
+    if (shareText) {
+      [self.documentController setAnnotation:@{@"InstagramCaption" : shareText}];
+    }
+    
+    if (![self.documentController presentOpenInMenuFromRect:CGRectZero inView:self.rootViewController.view animated:YES]) {
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"openInstagramFailedTitle"
+                                                          message:@"openInstagramFailedMessage"
+                                                         delegate:self
+                                                cancelButtonTitle:@"ok"
+                                                otherButtonTitles:nil];
+      alertView.tag = 168;
+      [alertView show];
+    }
   }
 }
 
@@ -305,23 +294,27 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
   
   if (buttonIndex == [actionSheet cancelButtonIndex]) {
-    [self trackAndCallback];
+    [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultCancel];
     return;
   }
   
-  int selectedService = [[[self.socialMedias objectAtIndex:buttonIndex] valueForKey:@"service"] intValue];
+  int selectedService = [[[self.sharableMedias objectAtIndex:buttonIndex] valueForKey:@"service"] intValue];
   
   switch (selectedService) {
-    case SocialMediaFacebook:
+    case SharingTypeFacebook:
       [self shareViaFacebook];
       break;
       
-    case SocialMediaTwitter:
+    case SharingTypeTwitter:
       [self shareViaTwitter];
       break;
       
-    case SocialMediaInstagram:
+    case SharingTypeInstagram:
       [self shareViaInstagram];
+      break;
+      
+    case SharingTypeEmail:
+      [self shareViaMail];
       break;
       
     default:
@@ -334,9 +327,9 @@
 
 - (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {
   [self.rootViewController dismissViewControllerAnimated:NO completion:NULL];
-  self.sharedWithMedia = SocialMediaInstagram;
+  self.sharedWithMedia = SharingTypeInstagram;
   self.sharedWithSuccess = YES;
-  [self trackAndCallback];
+  [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
 }
 
 #pragma mark - UIAlertView
@@ -344,9 +337,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if (alertView.tag == 168) {
     if (buttonIndex == 0) {
-      self.sharedWithMedia = SocialMediaInstagram;
+      self.sharedWithMedia = SharingTypeInstagram;
       self.sharedWithSuccess = YES;
-      [self trackAndCallback];
+      [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
     }
   }
 }
@@ -359,24 +352,24 @@
   
 	switch (result) {
 		case MessageComposeResultCancelled:
-			DDLogVerbose(@"Result: Mail sending canceled");
+			NSLog(@"Result: Mail sending canceled");
 			break;
 		case MessageComposeResultSent:
-			DDLogVerbose(@"Result: Mail sent");
+			NSLog(@"Result: Mail sent");
 			break;
 		case MessageComposeResultFailed:
-			DDLogVerbose(@"Result: Mail sending failed");
+			NSLog(@"Result: Mail sending failed");
 			break;
 		default:
-			DDLogVerbose(@"Result: Mail not sent");
+			NSLog(@"Result: Mail not sent");
 			break;
 	}
   
   [self.mailComposeViewController dismissViewControllerAnimated:YES completion:NULL];
   
-  self.sharedWithMedia = SocialMediaEmail;
+  self.sharedWithMedia = SharingTypeEmail;
   self.sharedWithSuccess = YES;
-  [self trackAndCallback];
+  [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
 }
-*/
+
 @end

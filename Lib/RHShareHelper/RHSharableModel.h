@@ -14,6 +14,6 @@
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSString *emailBody;
-@property (nonatomic, strong) NSString *emailMessage;
+@property (nonatomic, strong) NSString *emailSubject;
 
 @end

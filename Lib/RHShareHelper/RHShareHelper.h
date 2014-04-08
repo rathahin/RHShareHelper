@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "RHShareHelperProtocol.h"
 
 typedef NS_ENUM(NSInteger, ShareHelperResult) {
 	ShareHelperResultSuccess,
@@ -13,34 +14,15 @@ typedef NS_OPTIONS(NSInteger, SharingType) {
   SharingTypeEmail
 } ;
 
-@class RHSharableModel;
-@protocol ShareHelperDelegate, ShareHelperDatasource;
-
 @interface RHShareHelper : NSObject
 
-@property (weak, nonatomic) id<ShareHelperDelegate> delegate;
-@property (weak, nonatomic) id<ShareHelperDatasource> datasource;
+@property (nonatomic, strong) NSDictionary      *facebook;
+@property (nonatomic, strong) NSDictionary      *twitter;
+@property (nonatomic, strong) NSDictionary      *instagram;
+@property (nonatomic, strong) NSDictionary      *email;
+@property (weak, nonatomic) id<RHShareHelperProtocol> delegate;
 
-/*
-- (id)initWithShareSource:(id)source optionalDictionary:(NSDictionary *)optionalDictionary;
-
-- (void)presentShareFromController:(UIViewController *)controller
-                   socialMediaType:(SocialMedia)socialMediaType
-                        completion:(void (^)())completion;
-*/
-
-@end
-
-
-
-@protocol ShareHelperDelegate <NSObject>
-
-- (void)shareHelper:(RHShareHelper *)shareHelper didFinishWithResult:(ShareHelperResult)restul;
-
-@end
-
-@protocol ShareHelperDatasource <NSObject>
-
-- (RHSharableModel *)sharableModelForType:(SharingType)sharingType;
+- (void)shareFromController:(UIViewController *)controller sharingType:(SharingType)sharingType;
+- (void)presentSheetFromController:(UIViewController *)controller sharableMedias:(NSArray *)sharableMedias;
 
 @end

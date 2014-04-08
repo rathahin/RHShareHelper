@@ -24,6 +24,7 @@
 		F1029D2B18F28B2700868A4F /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D2A18F28B2700868A4F /* ShareViewController.m */; };
 		F1029D3018F28DB300868A4F /* RHShareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D2F18F28DB300868A4F /* RHShareHelper.m */; };
 		F1029D3218F2986700868A4F /* ShareHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F1029D3118F2986700868A4F /* ShareHelperTest.m */; };
+		F146D81B18F3B79F001BB34C /* ShareHelperActor.m in Sources */ = {isa = PBXBuildFile; fileRef = F146D81A18F3B79F001BB34C /* ShareHelperActor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,9 @@
 		F1029D2E18F28DB300868A4F /* RHShareHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHShareHelper.h; sourceTree = "<group>"; };
 		F1029D2F18F28DB300868A4F /* RHShareHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHShareHelper.m; sourceTree = "<group>"; };
 		F1029D3118F2986700868A4F /* ShareHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHelperTest.m; sourceTree = "<group>"; };
+		F146D81818F3B089001BB34C /* RHShareHelperProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHShareHelperProtocol.h; sourceTree = "<group>"; };
+		F146D81918F3B79F001BB34C /* ShareHelperActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareHelperActor.h; sourceTree = "<group>"; };
+		F146D81A18F3B79F001BB34C /* ShareHelperActor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHelperActor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,8 @@
 			children = (
 				F1029D2918F28B2700868A4F /* ShareViewController.h */,
 				F1029D2A18F28B2700868A4F /* ShareViewController.m */,
+				F146D81918F3B79F001BB34C /* ShareHelperActor.h */,
+				F146D81A18F3B79F001BB34C /* ShareHelperActor.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -189,6 +195,7 @@
 				F1029D2F18F28DB300868A4F /* RHShareHelper.m */,
 				BACD48CD18F2E4690004AEC8 /* RHSharableModel.h */,
 				BACD48CE18F2E4690004AEC8 /* RHSharableModel.m */,
+				F146D81818F3B089001BB34C /* RHShareHelperProtocol.h */,
 			);
 			path = RHShareHelper;
 			sourceTree = "<group>";
@@ -328,6 +335,7 @@
 				F1029D0618F28A8A00868A4F /* main.m in Sources */,
 				BACD48CF18F2E4690004AEC8 /* RHSharableModel.m in Sources */,
 				F1029D3018F28DB300868A4F /* RHShareHelper.m in Sources */,
+				F146D81B18F3B79F001BB34C /* ShareHelperActor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
