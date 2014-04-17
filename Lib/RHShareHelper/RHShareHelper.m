@@ -3,6 +3,13 @@
 #import <MessageUI/MessageUI.h>
 #import "RHSharableModel.h"
 
+struct {
+  unsigned sharableModelForType : 1;
+  unsigned appearenceForNavigationBar : 1;
+  unsigned didFinishShareWithType : 1;
+  unsigned willShareWithType : 1;
+} _delegateHas;
+
 @interface RHShareHelper () <UIActionSheetDelegate, UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIActionSheet     *actionSheet;
@@ -33,6 +40,41 @@
 - (void)commonSetupOnInit {
   
   _sharableMedias = @[self.facebook, self.twitter, self.instagram, self.email];
+  
+}
+
+- (void)setDelegate:(id<RHShareHelperProtocol>)newDelegate {
+  
+  _delegate = newDelegate;
+  
+  _delegateHas.sharableModelForType = [_delegate respondsToSelector:@selector(sharableModelForType:)];
+  _delegateHas.appearenceForNavigationBar = [_delegate respondsToSelector:@selector(shareHelper:appearenceForNavigationBar:)];
+  _delegateHas.didFinishShareWithType = [_delegate respondsToSelector:@selector(shareHelper:didFinishShareWithType:result:)];
+  _delegateHas.willShareWithType = [_delegate respondsToSelector:@selector(shareHelper:willShareWithType:)];
+  
+}
+
+- (RHSharableModel *)shareItemForNetworkType:(SharingType)sharingType {
+  
+  if (!_delegateHas.didFinishShareWithType) {
+    
+    [NSException raise:NSInvalidArgumentException format:@"Actor have to implement sharableModelForType method"];
+    
+  } else {
+    
+    return [self.delegate sharableModelForType:SharingTypeFacebook];
+  
+  }
+  
+  return nil;
+  
+}
+
+- (void)willShareToNetworkType:(SharingType)sharingType {
+  
+  if (_delegateHas.sharableModelForType) {
+    [self.delegate shareHelper:self willShareWithType:sharingType];
+  }
   
 }
 
@@ -141,6 +183,8 @@
 #pragma mark - Twitter
 
 - (void)shareViaTwitter {
+  [self willShareToNetworkType:SharingTypeTwitter];
+  
   id twitterViewComposer = nil;
   
   if (NSClassFromString(@"UIActivityViewController")) {
@@ -154,7 +198,11 @@
       [self.rootViewController dismissViewControllerAnimated:YES completion:^{
         self.sharedWithMedia = SharingTypeTwitter;
         self.sharedWithSuccess = YES;
-        [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+        
+        if (_delegateHas.didFinishShareWithType) {
+          [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+        }
+        
       }];
     };
   }
@@ -162,7 +210,8 @@
   if (twitterViewComposer) {
     self.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
-    RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeFacebook];
+    
+    RHSharableModel *shareItem = [self shareItemForNetworkType:SharingTypeFacebook];
     
     if (shareItem.shareText)
       [twitterViewComposer setInitialText:shareItem.shareText];
@@ -175,12 +224,15 @@
     }
     
     [self.rootViewController presentViewController:twitterViewComposer animated:YES completion:NULL];
+    
   }
 }
 
 #pragma mark - Facebook
 
 - (void)shareViaFacebook {
+  [self willShareToNetworkType:SharingTypeFacebook];
+  
   SLComposeViewController *facebookViewComposer = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
   
   if (!facebookViewComposer) {
@@ -191,13 +243,17 @@
     [self.rootViewController dismissViewControllerAnimated:YES completion:^{
       self.sharedWithMedia = SharingTypeFacebook;
       self.sharedWithSuccess = YES;
-      [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+      
+      if (_delegateHas.didFinishShareWithType) {
+        [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+      }
+      
     }];
   };
   
   self.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
   
-  RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeFacebook];
+  RHSharableModel *shareItem = [self shareItemForNetworkType:SharingTypeFacebook];
   
   if (shareItem.shareText)
     [facebookViewComposer setInitialText:shareItem.shareText];
@@ -219,9 +275,12 @@
 }
 
 - (void)shareViaMail {
+  
+  [self willShareToNetworkType:SharingTypeEmail];
+  
   if ([self canSendMail]) {
     
-    RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeEmail];
+    RHSharableModel *shareItem = [self shareItemForNetworkType:SharingTypeEmail];
     
     self.mailComposeViewController = [[MFMailComposeViewController alloc] init];
     self.mailComposeViewController.mailComposeDelegate = self;
@@ -230,23 +289,29 @@
     appearenceForNavigationBar:self.mailComposeViewController.navigationBar];
     [self.mailComposeViewController setMessageBody:shareItem.emailBody isHTML:YES];
     [self.rootViewController presentViewController:self.mailComposeViewController animated:YES completion:NULL];
+    
   } else {
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Device not configured to send mail.", nil)
                                                     message:NSLocalizedString(@"", nil)
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                           otherButtonTitles:nil];
     [alert show];
+    
   }
 }
 
 #pragma mark - Instagram
 
 - (void)shareViaInstagram {
+  
+  [self willShareToNetworkType:SharingTypeInstagram];
+  
   // no resize, just fire away.
   //UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
   
-  RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeInstagram];
+  RHSharableModel *shareItem = [self shareItemForNetworkType:SharingTypeInstagram];
   
   UIImage *shareImage = shareItem.shareImage;
   NSString *shareText = shareItem.shareText;
@@ -264,7 +329,11 @@
   NSString *writePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"instagram.igo"];
   
   if (![imageData writeToFile:writePath atomically:YES]) {
-    [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultFailure];
+    
+    if (_delegateHas.didFinishShareWithType) {
+      [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultFailure];
+    }
+    
   } else {
     // send it to instagram.
     NSURL *fileURL = [NSURL fileURLWithPath:writePath];
@@ -294,7 +363,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
   
   if (buttonIndex == [actionSheet cancelButtonIndex]) {
-    [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultCancel];
+    
+    if (_delegateHas.didFinishShareWithType) {
+      [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultCancel];
+    }
+    
     return;
   }
   
@@ -329,7 +402,11 @@
   [self.rootViewController dismissViewControllerAnimated:NO completion:NULL];
   self.sharedWithMedia = SharingTypeInstagram;
   self.sharedWithSuccess = YES;
-  [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+  
+  if (_delegateHas.didFinishShareWithType) {
+    [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+  }
+  
 }
 
 #pragma mark - UIAlertView
@@ -339,7 +416,11 @@
     if (buttonIndex == 0) {
       self.sharedWithMedia = SharingTypeInstagram;
       self.sharedWithSuccess = YES;
-      [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+      
+      if (_delegateHas.didFinishShareWithType) {
+        [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+      }
+      
     }
   }
 }
@@ -369,7 +450,11 @@
   
   self.sharedWithMedia = SharingTypeEmail;
   self.sharedWithSuccess = YES;
-  [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+  
+  if (_delegateHas.didFinishShareWithType) {
+    [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
+  }
+  
 }
 
 @end

@@ -52,7 +52,42 @@
 
 - (void)shareHelper:(RHShareHelper *)shareHelper didFinishShareWithType:(NSInteger)sharingType result:(NSInteger)result {
   
-  // Required by protocol
+  NSLog(@"did share with %@", [self networkNameWithEnumType:sharingType]);
+  
+}
+
+- (void)shareHelper:(RHShareHelper *)shareHelper willShareWithType:(NSInteger)sharingType {
+  
+  NSLog(@"will share with %@", [self networkNameWithEnumType:sharingType]);
+  
+}
+
+- (NSString *)networkNameWithEnumType:(SharingType)sharingType {
+  
+  NSString *result;
+  
+  switch (sharingType) {
+    case SharingTypeFacebook:
+      result = @"Facebook";
+      break;
+      
+    case SharingTypeEmail:
+      result = @"Email";
+      break;
+      
+    case SharingTypeInstagram:
+      result = @"Instagram";
+      break;
+      
+    case SharingTypeTwitter:
+      result = @"Twitter";
+      break;
+      
+    default:
+      break;
+  }
+  
+  return result;
   
 }
 

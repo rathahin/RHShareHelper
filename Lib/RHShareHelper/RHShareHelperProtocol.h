@@ -11,12 +11,17 @@
 @class RHSharableModel, RHShareHelper;
 @protocol RHShareHelperProtocol <NSObject>
 
+- (RHSharableModel *)sharableModelForType:(NSInteger)sharingType;
+
+@optional
+
+- (void)shareHelper:(RHShareHelper *)shareHelper appearenceForNavigationBar:(UINavigationBar *)navigationBar;
+
 - (void)shareHelper:(RHShareHelper *)shareHelper
 didFinishShareWithType:(NSInteger)sharingType
              result:(NSInteger)result;
 
-- (void)shareHelper:(RHShareHelper *)shareHelper appearenceForNavigationBar:(UINavigationBar *)navigationBar;
-
-- (RHSharableModel *)sharableModelForType:(NSInteger)sharingType;
+- (void)shareHelper:(RHShareHelper *)shareHelper
+  willShareWithType:(NSInteger)sharingType;
 
 @end
