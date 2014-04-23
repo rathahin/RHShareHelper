@@ -62,7 +62,7 @@ struct {
     
   } else {
     
-    return [self.delegate sharableModelForType:SharingTypeFacebook];
+    return [self.delegate sharableModelForType:sharingType];
   
   }
   
