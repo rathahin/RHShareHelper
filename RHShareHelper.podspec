@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RHShareHelper"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "Implement Sharing to your app even easier."
   s.description  = "RHShareHelper is a small library for iOS to share content to social media network. It provice convenience method to present specific network sharing or list of available network to share. It was made to easy implement and set difference content for difference type of network."
   s.homepage     = "https://github.com/rathahin/RHShareHelper"
