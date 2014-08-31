@@ -16,17 +16,24 @@
   
   RHSharableModel *shareItem = [RHSharableModel new];
   
-  if (sharingType != SharingTypeEmail) {
-    
-    shareItem.shareText = @"Up comming WWDC!";
-    shareItem.url = [NSURL URLWithString:@"https://developer.apple.com/wwdc/"];
-    
-  } else {
+  if (sharingType == SharingTypeEmail) {
     
     shareItem.emailSubject = @"Up comming WWDC!";
     shareItem.emailBody = @"Checkout up comming WWDC at https://developer.apple.com/wwdc/";
     
+  } else if (sharingType == SharingTypeInstagram) {
+    
+    shareItem.shareText = @"Love low poly style";
+    shareItem.shareImage = [UIImage imageNamed:@"photo"];
+  
+  } else {
+    
+    shareItem.shareText = @"Up comming WWDC!";
+    shareItem.url = [NSURL URLWithString:@"https://developer.apple.com/wwdc/"];
+    
   }
+  
+  //photo
   
   return shareItem;
 }

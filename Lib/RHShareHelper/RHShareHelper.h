@@ -11,7 +11,8 @@ typedef NS_OPTIONS(NSInteger, SharingType) {
   SharingTypeFacebook,
   SharingTypeTwitter,
   SharingTypeInstagram,
-  SharingTypeEmail
+  SharingTypeEmail,
+  SharingTypeWhatsapp
 } ;
 
 @interface RHShareHelper : NSObject
@@ -19,6 +20,7 @@ typedef NS_OPTIONS(NSInteger, SharingType) {
 @property (nonatomic, strong) NSDictionary      *facebook;
 @property (nonatomic, strong) NSDictionary      *twitter;
 @property (nonatomic, strong) NSDictionary      *instagram;
+@property (nonatomic, strong) NSDictionary      *whatsapp;
 @property (nonatomic, strong) NSDictionary      *email;
 @property (weak, nonatomic) id<RHShareHelperProtocol> delegate;
 

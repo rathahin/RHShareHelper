@@ -39,7 +39,7 @@ struct {
 
 - (void)commonSetupOnInit {
   
-  _sharableMedias = @[self.facebook, self.twitter, self.instagram, self.email];
+  _sharableMedias = @[self.facebook, self.twitter, self.instagram, self.email, self.whatsapp];
   
 }
 
@@ -99,6 +99,10 @@ struct {
       
     case SharingTypeEmail:
       [self shareViaMail];
+      break;
+      
+    case SharingTypeWhatsapp:
+      [self shareViaWhatsapp];
       break;
       
     default:
@@ -178,6 +182,17 @@ struct {
   }
   
   return _email;
+}
+
+- (NSDictionary *)whatsapp {
+  
+  if (!_whatsapp) {
+    _whatsapp = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:SharingTypeWhatsapp], @"service",
+                 @"Whatsapp", @"title",
+                 nil];
+  }
+  
+  return _whatsapp;
 }
 
 #pragma mark - Twitter
@@ -357,6 +372,62 @@ struct {
   }
 }
 
+#pragma mark - Whatsapp
+
+- (void)shareViaWhatsapp {
+  
+  RHSharableModel *shareItem = [self.delegate sharableModelForType:SharingTypeWhatsapp];
+  
+  UIImage *shareImage = shareItem.shareImage;
+  NSString *shareText = shareItem.shareText;
+  
+  if (!shareImage) {
+    NSString *whatsappURLString = [NSString stringWithFormat:@"whatsapp://send?text=%@", [shareText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURL *whatsappURL = [NSURL URLWithString:whatsappURLString];
+    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+      [[UIApplication sharedApplication] openURL: whatsappURL];
+    }
+    return;
+  }
+  
+  CGFloat cropVal = (shareImage.size.height > shareImage.size.width ? shareImage.size.width : shareImage.size.height);
+  
+  cropVal *= [shareImage scale];
+  
+  CGRect cropRect = (CGRect){.size.height = cropVal, .size.width = cropVal};
+  CGImageRef imageRef = CGImageCreateWithImageInRect([shareImage CGImage], cropRect);
+  
+  NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 1.0);
+  CGImageRelease(imageRef);
+  
+  NSString *writePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"whatsapp.wai"];
+  
+  if (![imageData writeToFile:writePath atomically:YES]) {
+    [self.delegate shareHelper:self didFinishShareWithType:SharingTypeInstagram result:ShareHelperResultFailure];
+  } else {
+    // send it to instagram.
+    NSURL *fileURL = [NSURL fileURLWithPath:writePath];
+    self.documentController = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.documentController.delegate = self;
+    [self.documentController setUTI:@"net.whatsapp.image"];
+    
+    if (shareText) {
+      [self.documentController setAnnotation:@{@"Send" : shareText}];
+    }
+    
+    if (![self.documentController presentOpenInMenuFromRect:CGRectZero inView:self.rootViewController.view animated:YES]) {
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"openWhatsappFailedTitle"
+                                                          message:@"openWhatsappFailedMessage"
+                                                         delegate:self
+                                                cancelButtonTitle:@"ok"
+                                                otherButtonTitles:nil];
+      alertView.tag = 169;
+      [alertView show];
+    }
+  }
+  
+}
+
 #pragma mark -
 #pragma mark Action Sheet Delegate Methods
 
@@ -390,6 +461,10 @@ struct {
       [self shareViaMail];
       break;
       
+    case SharingTypeWhatsapp:
+      [self shareViaWhatsapp];
+      break;
+      
     default:
       break;
   }
@@ -421,6 +496,12 @@ struct {
         [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
       }
       
+    }
+  } else if (alertView.tag == 169) {
+    if (buttonIndex == 0) {
+      self.sharedWithMedia = SharingTypeWhatsapp;
+      self.sharedWithSuccess = YES;
+      [self.delegate shareHelper:self didFinishShareWithType:self.sharedWithMedia result:ShareHelperResultSuccess];
     }
   }
 }

@@ -10,29 +10,29 @@
 	<string>ShareDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CB68BAFD-6B7C-41AC-B8A9-C9C2F4510BEF</key>
+		<key>993CA0144C4146FC9A7C87A96085782BC2897FA5</key>
 		<string>https://github.com/rathahin/RHShareHelper.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Demo/ShareDemo.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CB68BAFD-6B7C-41AC-B8A9-C9C2F4510BEF</key>
+		<key>993CA0144C4146FC9A7C87A96085782BC2897FA5</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/rathahin/RHShareHelper.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CB68BAFD-6B7C-41AC-B8A9-C9C2F4510BEF</string>
+	<string>993CA0144C4146FC9A7C87A96085782BC2897FA5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CB68BAFD-6B7C-41AC-B8A9-C9C2F4510BEF</string>
+			<string>993CA0144C4146FC9A7C87A96085782BC2897FA5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RHShareHelper</string>
 		</dict>

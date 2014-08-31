@@ -69,12 +69,14 @@
   
   [self.shareHelper presentSheetFromController:self sharableMedias:@[self.shareHelper.facebook,
                                                                      self.shareHelper.twitter,
-                                                                     self.shareHelper.email]];
+                                                                     self.shareHelper.email,
+                                                                     self.shareHelper.instagram,
+                                                                     self.shareHelper.whatsapp]];
   
 }
 
 - (void)facebookShareAction:(id)sender {
-  [self.shareHelper shareFromController:self sharingType:SharingTypeFacebook];
+  [self.shareHelper shareFromController:self sharingType:SharingTypeWhatsapp];
 }
 
 #pragma mark - Lazy loading
@@ -97,7 +99,7 @@
     _shareToFacebook = [UIButton buttonWithType:UIButtonTypeCustom];
     _shareToFacebook.frame = CGRectMake(0, 0, 150, 60);
     _shareToFacebook.backgroundColor = [UIColor lightGrayColor];
-    [_shareToFacebook setTitle:@"Facebook" forState:UIControlStateNormal];
+    [_shareToFacebook setTitle:@"Whatsapp" forState:UIControlStateNormal];
     _shareToFacebook.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds) / 2);
     [_shareToFacebook addTarget:self action:@selector(facebookShareAction:) forControlEvents:UIControlEventTouchUpInside];
   }
